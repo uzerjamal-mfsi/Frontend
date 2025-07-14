@@ -1,30 +1,24 @@
-import { Button, Container, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { register } from "../../services/auth/authService";
-import * as yup from "yup";
-import { validate as genericValidate } from "../../utils/validate";
+import { Button, Container, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { register } from '../../services/auth/authService';
+import * as yup from 'yup';
+import { validate as genericValidate } from '../../utils/validate';
 
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .min(3, "Name must be atleast 3 characters")
-    .required("Name is required"),
-  email: yup
-    .string()
-    .email("Invalid email address")
-    .required("Email is required"),
+  name: yup.string().min(3, 'Name must be atleast 3 characters').required('Name is required'),
+  email: yup.string().email('Invalid email address').required('Email is required'),
   password: yup
     .string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+    .min(8, 'Password must be at least 8 characters')
+    .required('Password is required'),
 });
 
-export default function RegisterPage() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+function RegisterPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
@@ -33,18 +27,17 @@ export default function RegisterPage() {
   };
 
   const handleFieldChange = async (field, value) => {
-    if (field === "name") setName(value);
-    if (field === "email") setEmail(value);
-    if (field === "password") setPassword(value);
+    if (field === 'name') setName(value);
+    if (field === 'email') setEmail(value);
+    if (field === 'password') setPassword(value);
     await validate({
-      name: field === "name" ? value : name,
-      email: field === "email" ? value : email,
-      password: field === "password" ? value : password,
+      name: field === 'name' ? value : name,
+      email: field === 'email' ? value : email,
+      password: field === 'password' ? value : password,
     });
   };
 
-  const isSubmitDisabled =
-    !name || !email || !password || Object.keys(errors).length > 0;
+  const isSubmitDisabled = !name || !email || !password || Object.keys(errors).length > 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,10 +45,10 @@ export default function RegisterPage() {
     if (!isValid) return;
     try {
       await register({ name, email, password });
-      toast.success("Registration successful");
-      navigate("/login");
+      toast.success('Registration successful');
+      navigate('/login');
     } catch (err) {
-      toast.error(err.response?.data?.error || "Registration failed");
+      toast.error(err.response?.data?.error || 'Registration failed');
     }
   };
 
@@ -68,14 +61,14 @@ export default function RegisterPage() {
         <TextField
           label="Name"
           value={name}
-          onChange={(e) => handleFieldChange("name", e.target.value)}
+          onChange={(e) => handleFieldChange('name', e.target.value)}
           error={!!errors.name}
           helperText={errors.name}
         />
         <TextField
           label="Email"
           value={email}
-          onChange={(e) => handleFieldChange("email", e.target.value)}
+          onChange={(e) => handleFieldChange('email', e.target.value)}
           error={!!errors.email}
           helperText={errors.email}
         />
@@ -83,17 +76,12 @@ export default function RegisterPage() {
           label="Password"
           type="password"
           value={password}
-          onChange={(e) => handleFieldChange("password", e.target.value)}
+          onChange={(e) => handleFieldChange('password', e.target.value)}
           error={!!errors.password}
           helperText={errors.password}
         />
 
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={isSubmitDisabled}
-        >
+        <Button type="submit" variant="contained" color="primary" disabled={isSubmitDisabled}>
           Register
         </Button>
         <Button variant="text" color="secondary" to="/login" component={Link}>
@@ -103,3 +91,5 @@ export default function RegisterPage() {
     </Container>
   );
 }
+
+export default RegisterPage;

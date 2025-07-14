@@ -16,7 +16,7 @@ const schema = yup.object().shape({
     .required('Password is required'),
 });
 
-export default function LoginPage() {
+function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -81,3 +81,5 @@ export default function LoginPage() {
     </Container>
   );
 }
+
+export default LoginPage;
