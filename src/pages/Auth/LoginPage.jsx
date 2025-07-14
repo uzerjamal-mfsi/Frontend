@@ -2,6 +2,8 @@ import { Button, Container, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../../services/auth/authService";
+import { useNavigate } from "react-router-dom";
+import { setToken } from "../../lib/tokenStorage";
 import { toast } from "react-toastify";
 import * as yup from "yup";
 import { validate as genericValidate } from "../../utils/validate";
@@ -18,6 +20,7 @@ const schema = yup.object().shape({
 });
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -40,7 +43,9 @@ export default function LoginPage() {
     const isValid = await validate();
     if (!isValid) return;
     try {
-      await login({ email, password });
+      const response = await login({ email, password });
+      setToken(response.data.token);
+      navigate("/dashboard");
     } catch (err) {
       toast.error(err.response?.data?.error || "Login failed");
     }
