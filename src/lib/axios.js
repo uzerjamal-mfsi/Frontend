@@ -1,13 +1,13 @@
 import axios from "axios";
-import { getToken } from "./tokenStorage";
-
+import { getToken } from "./token-storage";
 
 const axiosInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: import.meta.env.VITE_API_URL,
 });
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    console.log({ axiosInstance });
     const token = getToken();
     if (token) {
       config.headers = config.headers || {};
