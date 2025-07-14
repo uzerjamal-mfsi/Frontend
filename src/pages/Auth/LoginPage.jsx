@@ -1,28 +1,25 @@
-import { Button, Container, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import { login } from "../../services/auth/authService";
-import { useNavigate } from "react-router-dom";
-import { setToken } from "../../lib/tokenStorage";
-import { toast } from "react-toastify";
-import * as yup from "yup";
-import { validate as genericValidate } from "../../utils/validate";
+import { Button, Container, TextField, Typography } from '@mui/material';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { login } from '../../services/auth/authService';
+import { useNavigate } from 'react-router-dom';
+import { setToken } from '../../lib/token-storage';
+import { toast } from 'react-toastify';
+import * as yup from 'yup';
+import { validate as genericValidate } from '../../utils/validate';
 
 const schema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Invalid email address")
-    .required("Email is required"),
+  email: yup.string().email('Invalid email address').required('Email is required'),
   password: yup
     .string()
-    .min(8, "Password must be at least 8 characters")
-    .required("Password is required"),
+    .min(8, 'Password must be at least 8 characters')
+    .required('Password is required'),
 });
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
   const validate = async (fieldValues = { email, password }) => {
@@ -30,11 +27,11 @@ export default function LoginPage() {
   };
 
   const handleFieldChange = async (field, value) => {
-    if (field === "email") setEmail(value);
-    if (field === "password") setPassword(value);
+    if (field === 'email') setEmail(value);
+    if (field === 'password') setPassword(value);
     await validate({
-      email: field === "email" ? value : email,
-      password: field === "password" ? value : password,
+      email: field === 'email' ? value : email,
+      password: field === 'password' ? value : password,
     });
   };
 
@@ -45,14 +42,13 @@ export default function LoginPage() {
     try {
       const response = await login({ email, password });
       setToken(response.data.token);
-      navigate("/dashboard");
+      navigate('/dashboard');
     } catch (err) {
-      toast.error(err.response?.data?.error || "Login failed");
+      toast.error(err.response?.data?.error || 'Login failed');
     }
   };
 
-  const isSubmitDisabled =
-    !email || !password || Object.keys(errors).length > 0;
+  const isSubmitDisabled = !email || !password || Object.keys(errors).length > 0;
 
   return (
     <Container maxWidth="sm" className="py-10">
@@ -63,7 +59,7 @@ export default function LoginPage() {
         <TextField
           label="Email"
           value={email}
-          onChange={(e) => handleFieldChange("email", e.target.value)}
+          onChange={(e) => handleFieldChange('email', e.target.value)}
           error={!!errors.email}
           helperText={errors.email}
         />
@@ -71,24 +67,14 @@ export default function LoginPage() {
           label="Password"
           type="password"
           value={password}
-          onChange={(e) => handleFieldChange("password", e.target.value)}
+          onChange={(e) => handleFieldChange('password', e.target.value)}
           error={!!errors.password}
           helperText={errors.password}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          disabled={isSubmitDisabled}
-        >
+        <Button type="submit" variant="contained" color="primary" disabled={isSubmitDisabled}>
           Login
         </Button>
-        <Button
-          variant="text"
-          color="secondary"
-          to="/register"
-          component={Link}
-        >
+        <Button variant="text" color="secondary" to="/register" component={Link}>
           Don't have an account? Register
         </Button>
       </form>
