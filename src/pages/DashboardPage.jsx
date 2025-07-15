@@ -7,6 +7,7 @@ import WorkoutList from '../components/workout/WorkoutList';
 function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleWorkoutOpen = (workoutId = null) => {
     setSelectedWorkoutId(workoutId);
@@ -20,6 +21,7 @@ function DashboardPage() {
     toast.success('Workout added successfully!');
     setOpenWorkoutDialog(false);
     setSelectedWorkoutId(null);
+    setRefreshKey((prev) => prev + 1);
   };
 
   return (
@@ -39,7 +41,7 @@ function DashboardPage() {
         onSuccess={handleWorkoutSubmit}
         workoutId={selectedWorkoutId}
       />
-      <WorkoutList onCardClick={handleWorkoutOpen} />
+      <WorkoutList onCardClick={handleWorkoutOpen} refreshKey={refreshKey} />
     </div>
   );
 }

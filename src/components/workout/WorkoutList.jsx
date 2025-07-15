@@ -3,7 +3,7 @@ import { getWorkoutsList } from '../../services/auth/workout-service';
 import { Grid, CircularProgress } from '@mui/material';
 import WorkoutCard from './WorkoutCard';
 
-function WorkoutList({ onCardClick }) {
+function WorkoutList({ onCardClick, refreshKey }) {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -15,7 +15,7 @@ function WorkoutList({ onCardClick }) {
       setLoading(false);
     }
     fetchWorkoutList();
-  }, []);
+  }, [refreshKey]);
 
   if (loading) return <CircularProgress />;
 
