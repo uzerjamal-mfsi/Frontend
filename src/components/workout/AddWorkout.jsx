@@ -20,7 +20,7 @@ import { addExercises, getExercises } from '../../services/auth/workout-service'
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 
-function AddWorkout() {
+function AddWorkout({ inDialog = false, onFormSubmit }) {
   const navigate = useNavigate();
   const [note, setNote] = useState('');
   const [date, setDate] = useState(dayjs());
@@ -69,7 +69,7 @@ function AddWorkout() {
     return match ? match._id : display;
   }
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e, dialogCallbacks) {
     e.preventDefault();
     const formattedData = {
       date: dayjs(date).toISOString(),
@@ -82,16 +82,28 @@ function AddWorkout() {
         caloriesBurned: Number(row.caloriesBurned) || 0,
       })),
     };
-    await addExercises(formattedData);
-    navigate('/');
+    try {
+      await addExercises(formattedData);
+      if (inDialog && dialogCallbacks && dialogCallbacks.onSuccess) {
+        dialogCallbacks.onSuccess();
+      } else if (onFormSubmit) {
+        onFormSubmit();
+      } else {
+        navigate('/');
+      }
+    } catch {
+      if (inDialog && dialogCallbacks && dialogCallbacks.onError) {
+        dialogCallbacks.onError();
+      }
+    }
   }
 
   return (
     <Container maxWidth="md" className="py-10">
-      <Typography variant="h4" component="h1">
-        Add Workout
-      </Typography>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-4"
+        onSubmit={inDialog ? (e) => onFormSubmit(e, handleSubmit) : handleSubmit}
+      >
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker label="Workout Date" value={date} onChange={(e) => setDate(e)} />
         </LocalizationProvider>
