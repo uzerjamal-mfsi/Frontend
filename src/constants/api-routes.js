@@ -8,5 +8,6 @@ export const API_ROUTES = {
     ADD_WORKOUT: '/workouts/',
     GET_WORKOUTS_LIST: '/workouts',
     GET_WORKOUT: '/workouts/',
+    DELETE_WORKOUT: '/workouts/',
   },
 };
