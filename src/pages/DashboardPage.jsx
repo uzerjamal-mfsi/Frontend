@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import AddWorkoutDialog from '../components/workout/AddWorkoutDialog';
 import { toast } from 'react-toastify';
+import WorkoutList from '../components/workout/WorkoutList';
 
 function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
@@ -29,6 +30,7 @@ function DashboardPage() {
         onClose={handleWorkoutClose}
         onSuccess={handleWorkoutSubmit}
       />
+      <WorkoutList />
     </div>
   );
 }

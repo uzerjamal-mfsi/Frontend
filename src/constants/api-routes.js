@@ -6,5 +6,6 @@ export const API_ROUTES = {
   WORKOUTS: {
     GET_EXERCISES: '/workouts/exercises',
     ADD_WORKOUT: '/workouts/',
+    GET_WORKOUTS_LIST: '/workouts',
   },
 };
