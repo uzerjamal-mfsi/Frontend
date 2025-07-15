@@ -2,7 +2,7 @@ import { Button, Container, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { register } from '../../services/auth/authService';
+import { register } from '../../services/auth/auth-service';
 import * as yup from 'yup';
 import { validate as genericValidate } from '../../utils/validate';
 

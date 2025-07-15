@@ -3,4 +3,8 @@ export const API_ROUTES = {
     LOGIN: '/auth/login',
     REGISTER: '/auth/register',
   },
+  WORKOUTS: {
+    GET_EXERCISES: '/workouts/exercises',
+    ADD_WORKOUT: '/workouts/',
+  },
 };

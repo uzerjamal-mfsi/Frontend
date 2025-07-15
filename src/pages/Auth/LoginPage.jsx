@@ -1,7 +1,7 @@
 import { Button, Container, TextField, Typography } from '@mui/material';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { login } from '../../services/auth/authService';
+import { login } from '../../services/auth/auth-service';
 import { useNavigate } from 'react-router-dom';
 import { setToken } from '../../lib/token-storage';
 import { toast } from 'react-toastify';
