@@ -1,8 +1,8 @@
 import { Card, CardContent, Typography } from '@mui/material';
 
-function WorkoutCard({ workout }) {
+function WorkoutCard({ workout, onClick }) {
   return (
-    <Card>
+    <Card onClick={() => onClick && onClick(workout.id)}>
       <CardContent>
         <Typography variant="h6">{workout.note}</Typography>
         <Typography>Workout Date: {new Date(workout.date).toLocaleDateString()}</Typography>

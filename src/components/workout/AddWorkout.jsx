@@ -4,11 +4,11 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import { addExercises, getExercises } from '../../services/auth/workout-service';
+import { addExercises, getExercises, updateExercises } from '../../services/auth/workout-service';
 import ExerciseTable from './ExerciseTable';
 import { useNavigate } from 'react-router-dom';
 
-function AddWorkout({ inDialog = false, onFormSubmit }) {
+function AddWorkout({ inDialog = false, onFormSubmit, workout }) {
   const navigate = useNavigate();
   const [note, setNote] = useState('');
   const [date, setDate] = useState(dayjs());
@@ -35,6 +35,22 @@ function AddWorkout({ inDialog = false, onFormSubmit }) {
     }
     fetchExercises();
   }, []);
+
+  useEffect(() => {
+    if (workout) {
+      setNote(workout.note || '');
+      setDate(dayjs(workout.date));
+      setExerciseRows(
+        workout.exercises.map((ex) => ({
+          exercise: `${ex.exercise.name} (${ex.exercise.muscleGroup})`,
+          sets: ex.sets || 0,
+          reps: ex.reps || 0,
+          weight: ex.weight || 0,
+          caloriesBurned: ex.caloriesBurned || 0,
+        })),
+      );
+    }
+  }, [workout]);
 
   function addRow() {
     setExerciseRows([...exerciseRows, { exercise: null, sets: 0, reps: 0, caloriesBurned: 0 }]);
@@ -71,7 +87,11 @@ function AddWorkout({ inDialog = false, onFormSubmit }) {
       })),
     };
     try {
-      await addExercises(formattedData);
+      if (workout) {
+        await updateExercises(workout._id, formattedData);
+      } else {
+        await addExercises(formattedData);
+      }
       if (inDialog && dialogCallbacks && dialogCallbacks.onSuccess) {
         dialogCallbacks.onSuccess();
       } else if (onFormSubmit) {

@@ -3,7 +3,7 @@ import { getWorkoutsList } from '../../services/auth/workout-service';
 import { Grid, CircularProgress } from '@mui/material';
 import WorkoutCard from './WorkoutCard';
 
-function WorkoutList() {
+function WorkoutList({ onCardClick }) {
   const [workouts, setWorkouts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -23,7 +23,7 @@ function WorkoutList() {
     <Grid container spacing={2}>
       {workouts.map((workout) => (
         <Grid size={{ xs: 12, md: 3 }} key={workout.id}>
-          <WorkoutCard workout={workout} />
+          <WorkoutCard workout={workout} onClick={onCardClick} />
         </Grid>
       ))}
     </Grid>

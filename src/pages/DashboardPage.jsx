@@ -6,12 +6,20 @@ import WorkoutList from '../components/workout/WorkoutList';
 
 function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
+  const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
 
-  const handleWorkoutOpen = () => setOpenWorkoutDialog(true);
-  const handleWorkoutClose = () => setOpenWorkoutDialog(false);
+  const handleWorkoutOpen = (workoutId = null) => {
+    setSelectedWorkoutId(workoutId);
+    setOpenWorkoutDialog(true);
+  };
+  const handleWorkoutClose = () => {
+    setOpenWorkoutDialog(false);
+    setSelectedWorkoutId(null);
+  };
   const handleWorkoutSubmit = () => {
     toast.success('Workout added successfully!');
     setOpenWorkoutDialog(false);
+    setSelectedWorkoutId(null);
   };
 
   return (
@@ -20,7 +28,7 @@ function DashboardPage() {
       <Button
         variant="contained"
         color="primary"
-        onClick={handleWorkoutOpen}
+        onClick={() => handleWorkoutOpen(null)}
         style={{ marginTop: 16 }}
       >
         Add Workout
@@ -29,8 +37,9 @@ function DashboardPage() {
         open={openWorkoutDialog}
         onClose={handleWorkoutClose}
         onSuccess={handleWorkoutSubmit}
+        workoutId={selectedWorkoutId}
       />
-      <WorkoutList />
+      <WorkoutList onCardClick={handleWorkoutOpen} />
     </div>
   );
 }
