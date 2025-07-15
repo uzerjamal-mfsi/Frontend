@@ -8,3 +8,5 @@ export const updateExercises = (id, data) =>
 export const getWorkoutsList = (page = 1, limit = 10) =>
   axiosInstance.get(`${API_ROUTES.WORKOUTS.GET_WORKOUTS_LIST}?page=${page}&limit=${limit}`);
 export const getWorkoutById = (id) => axiosInstance.get(`${API_ROUTES.WORKOUTS.GET_WORKOUT}${id}`);
+export const deleteWorkout = (id) =>
+  axiosInstance.delete(`${API_ROUTES.WORKOUTS.DELETE_WORKOUT}${id}`);
