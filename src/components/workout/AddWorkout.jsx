@@ -1,23 +1,11 @@
-import {
-  Autocomplete,
-  Button,
-  Container,
-  IconButton,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, Container, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 import { addExercises, getExercises } from '../../services/auth/workout-service';
-import DeleteIcon from '@mui/icons-material/Delete';
+import ExerciseTable from './ExerciseTable';
 import { useNavigate } from 'react-router-dom';
 
 function AddWorkout({ inDialog = false, onFormSubmit }) {
@@ -109,56 +97,13 @@ function AddWorkout({ inDialog = false, onFormSubmit }) {
         </LocalizationProvider>
         <TextField label="Note" value={note} onChange={(e) => setNote(e.target.value)} />
 
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Exercise</TableCell>
-              <TableCell>Sets</TableCell>
-              <TableCell>Reps</TableCell>
-              <TableCell>Weight</TableCell>
-              <TableCell>Calories Burned</TableCell>
-              <TableCell>Delete</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {exerciseRows.map((row, index) => {
-              return (
-                <TableRow key={index}>
-                  <TableCell>
-                    <Autocomplete
-                      options={exercises.map(
-                        (exercise) => `${exercise.name} (${exercise.muscleGroup})`,
-                      )}
-                      size="small"
-                      sx={{ minWidth: 250 }}
-                      value={row.exercise || ''}
-                      onChange={(_, newValue) => updateCol(index, 'exercise', newValue)}
-                      renderInput={(params) => <TextField {...params} label="Exercise" />}
-                    />
-                  </TableCell>
-                  {exerciseRowTextFields.map(({ field }) => (
-                    <TableCell>
-                      <TextField
-                        type="number"
-                        value={row[field] || ''}
-                        size="small"
-                        onChange={(e) => updateCol(index, field, e.target.value)}
-                      />
-                    </TableCell>
-                  ))}
-                  <TableCell>
-                    <IconButton
-                      disabled={exerciseRows.length <= 1}
-                      onClick={() => deleteRow(index)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </TableBody>
-        </Table>
+        <ExerciseTable
+          exerciseRows={exerciseRows}
+          exercises={exercises}
+          exerciseRowTextFields={exerciseRowTextFields}
+          updateCol={updateCol}
+          deleteRow={deleteRow}
+        />
 
         <Button variant="contained" color="secondary" onClick={addRow}>
           Add Exercise

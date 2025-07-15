@@ -22,7 +22,7 @@ function WorkoutList() {
   return (
     <Grid container spacing={2}>
       {workouts.map((workout) => (
-        <Grid size={{ xs: 12, sm: 6 }} key={workout.id}>
+        <Grid size={{ xs: 12, md: 3 }} key={workout.id}>
           <WorkoutCard workout={workout} />
         </Grid>
       ))}
