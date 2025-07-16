@@ -3,11 +3,13 @@ import Button from '@mui/material/Button';
 import AddWorkoutDialog from '../components/workout/AddWorkoutDialog';
 import { toast } from 'react-toastify';
 import WorkoutList from '../components/workout/WorkoutList';
+import { useDispatch } from 'react-redux';
+import { fetchWorkouts } from '../state/workouts-slice';
 
 function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const dispatch = useDispatch();
 
   const handleWorkoutOpen = (workoutId = null) => {
     setSelectedWorkoutId(workoutId);
@@ -21,7 +23,7 @@ function DashboardPage() {
     toast.success('Workout added successfully!');
     setOpenWorkoutDialog(false);
     setSelectedWorkoutId(null);
-    setRefreshKey((prev) => prev + 1);
+    dispatch(fetchWorkouts());
   };
 
   return (
@@ -41,7 +43,7 @@ function DashboardPage() {
         onSuccess={handleWorkoutSubmit}
         workoutId={selectedWorkoutId}
       />
-      <WorkoutList onCardClick={handleWorkoutOpen} refreshKey={refreshKey} />
+      <WorkoutList onCardClick={handleWorkoutOpen} />
     </div>
   );
 }

@@ -1,21 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { getWorkoutsList } from '../../services/auth/workout-service';
+import React, { useEffect } from 'react';
 import { Grid, CircularProgress } from '@mui/material';
 import WorkoutCard from './WorkoutCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchWorkouts } from '../../state/workouts-slice';
 
-function WorkoutList({ onCardClick, refreshKey }) {
-  const [workouts, setWorkouts] = useState([]);
-  const [loading, setLoading] = useState(true);
+function WorkoutList({ onCardClick }) {
+  const dispatch = useDispatch();
+  const { workouts, loading } = useSelector((state) => state.workouts);
 
   useEffect(() => {
-    setLoading(true);
-    async function fetchWorkoutList() {
-      const data = await getWorkoutsList();
-      setWorkouts(data.data.workouts);
-      setLoading(false);
-    }
-    fetchWorkoutList();
-  }, [refreshKey]);
+    dispatch(fetchWorkouts());
+  }, [dispatch]);
 
   if (loading) return <CircularProgress />;
 
