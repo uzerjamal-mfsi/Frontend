@@ -2,7 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import DashboardPage from '../pages/DashboardPage';
 import RegisterPage from '../pages/Auth/RegisterPage';
 import LoginPage from '../pages/Auth/LoginPage';
-import AddWorkout from '../components/workout/AddWorkout';
+import NotFoundPage from '../pages/NotFoundPage';
 
 export default function AppRoutes() {
   return (
@@ -11,6 +11,7 @@ export default function AppRoutes() {
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
