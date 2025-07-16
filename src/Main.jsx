@@ -5,6 +5,8 @@ import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes/AppRoutes';
 import ErrorBoundary from './components/ErrorBoundary';
 import { ToastContainer } from 'react-toastify';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -19,7 +21,9 @@ root.render(
         draggable
       />
       <ErrorBoundary>
-        <AppRoutes />
+        <Provider store={store}>
+          <AppRoutes />
+        </Provider>
       </ErrorBoundary>
     </BrowserRouter>
   </React.StrictMode>,
