@@ -10,4 +10,8 @@ export const API_ROUTES = {
     GET_WORKOUT: '/workouts/',
     DELETE_WORKOUT: '/workouts/',
   },
+  GOALS: {
+    GOALS_LIST: '/goals',
+    ADD_GOAL: '/goals',
+  },
 };
