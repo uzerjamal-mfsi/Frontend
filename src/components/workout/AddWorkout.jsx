@@ -16,6 +16,8 @@ function AddWorkout({ onFormSubmit, workout }) {
   const navigate = useNavigate();
   const [note, setNote] = useState('');
   const [date, setDate] = useState(dayjs());
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [exercises, setExercises] = useState([]);
   const [exerciseRows, setExerciseRows] = useState([
     { exercise: null, sets: 0, reps: 0, caloriesBurned: 0 },
@@ -44,6 +46,9 @@ function AddWorkout({ onFormSubmit, workout }) {
     if (workout) {
       setNote(workout.note || '');
       setDate(dayjs(workout.date));
+      const durationMs = workout.duration || 0;
+      setHours(Math.floor(durationMs / (60 * 60 * 1000)));
+      setMinutes(Math.floor((durationMs % (60 * 60 * 1000)) / (60 * 1000)));
       setExerciseRows(
         workout.exercises.map((ex) => ({
           exercise: `${ex.exercise.name} (${ex.exercise.muscleGroup})`,
@@ -79,9 +84,11 @@ function AddWorkout({ onFormSubmit, workout }) {
 
   async function handleSubmit(e, dialogCallbacks) {
     e.preventDefault();
+    const duration = (Number(hours) || 0) * 60 * 60 * 1000 + (Number(minutes) || 0) * 60 * 1000;
     const formattedData = {
       date: dayjs(date).toISOString(),
       note,
+      duration,
       exercises: exerciseRows.map((row) => ({
         exercise: getExerciseIdByDisplay(row.exercise),
         sets: Number(row.sets) || 0,
@@ -129,6 +136,36 @@ function AddWorkout({ onFormSubmit, workout }) {
           <DatePicker label="Workout Date" value={date} onChange={(e) => setDate(e)} />
         </LocalizationProvider>
         <TextField label="Note" value={note} onChange={(e) => setNote(e.target.value)} />
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <TextField
+            label="Hours"
+            type="number"
+            value={hours}
+            slotProps={{ input: { min: 0 } }}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (value === '' || Number(value) >= 0) {
+                setHours(value);
+              }
+            }}
+            style={{ maxWidth: 120 }}
+          />
+
+          <TextField
+            label="Minutes"
+            type="number"
+            value={minutes}
+            slotProps={{ input: { min: 0, max: 59 } }}
+            onChange={(e) => {
+              const value = e.target.value;
+              const num = Number(value);
+              if (value === '' || (num >= 0 && num <= 59)) {
+                setMinutes(value);
+              }
+            }}
+            style={{ maxWidth: 120 }}
+          />
+        </div>
 
         <ExerciseTable
           exerciseRows={exerciseRows}
