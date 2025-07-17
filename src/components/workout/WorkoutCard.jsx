@@ -6,6 +6,14 @@ import { useState } from 'react';
 function WorkoutCard({ workout, onClick, onDeleted }) {
   const [deleting, setDeleting] = useState(false);
 
+  const formatDuration = (ms) => {
+    if (!ms || isNaN(ms)) return null;
+    const totalMinutes = Math.floor(ms / 60000);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    return `${hours}h ${minutes}m`;
+  };
+
   const handleDelete = async (e) => {
     e.stopPropagation();
     setDeleting(true);
@@ -31,7 +39,14 @@ function WorkoutCard({ workout, onClick, onDeleted }) {
       }}
     >
       <CardContent>
-        <Typography variant="h6">{workout.note}</Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+          <Typography variant="h6">{workout.note}</Typography>
+          {workout.duration != null && (
+            <Typography variant="body2" color="text.secondary">
+              {formatDuration(workout.duration)}
+            </Typography>
+          )}
+        </Box>
         <Typography>Workout Date: {new Date(workout.date).toLocaleDateString()}</Typography>
         <Typography>Exercises: {workout.exerciseCount}</Typography>
         <Typography>Total Calories Burned: {workout.totalCaloriesBurned}</Typography>

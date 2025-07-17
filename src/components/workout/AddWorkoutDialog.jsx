@@ -26,9 +26,9 @@ function AddWorkoutDialog({ open, onClose, onSuccess, workoutId }) {
   async function handleFormSubmit(e, formSubmit) {
     setSubmitting(true);
     await formSubmit(e, {
-      onSuccess: () => {
+      onSuccess: (message) => {
         setSubmitting(false);
-        onSuccess && onSuccess();
+        onSuccess && onSuccess(message);
         onClose && onClose();
       },
       onError: () => setSubmitting(false),

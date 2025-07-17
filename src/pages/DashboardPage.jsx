@@ -16,6 +16,7 @@ function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
   const [openGoalDialog, setOpenGoalDialog] = useState(false);
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
+  const [dialogType, setDialogType] = useState(null);
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
@@ -33,21 +34,23 @@ function DashboardPage() {
     setOpenWorkoutDialog(false);
     setSelectedWorkoutId(null);
   };
-  const handleWorkoutSubmit = () => {
-    toast.success('Workout added successfully!');
+  const handleWorkoutSubmit = (message) => {
+    toast.success(message || 'Workout added successfully!');
     setOpenWorkoutDialog(false);
     setSelectedWorkoutId(null);
     dispatch(fetchWorkouts());
   };
 
-  const handleGoalOpen = () => {
+  const handleGoalOpen = (type) => {
+    setDialogType(type);
     setOpenGoalDialog(true);
   };
   const handleGoalClose = () => {
     setOpenGoalDialog(false);
   };
-  const handleGoalSubmit = () => {
-    toast.success('Goal added successfully!');
+  const handleGoalSubmit = (type) => {
+    const message = type === 'goal' ? 'Goal added successfully!' : 'Weight added successfuly!';
+    toast.success(message);
     setOpenGoalDialog(false);
     dispatch(fetchGoals());
   };
@@ -66,7 +69,12 @@ function DashboardPage() {
         onSuccess={handleWorkoutSubmit}
         workoutId={selectedWorkoutId}
       />
-      <AddGoalDialog open={openGoalDialog} onClose={handleGoalClose} onSuccess={handleGoalSubmit} />
+      <AddGoalDialog
+        open={openGoalDialog}
+        onClose={handleGoalClose}
+        onSuccess={handleGoalSubmit}
+        type={dialogType}
+      />
 
       <Typography variant="h4" sx={{ mb: 2 }}>
         Goals
@@ -75,10 +83,19 @@ function DashboardPage() {
       <Button
         variant="contained"
         color="primary"
-        onClick={() => handleGoalOpen(null)}
+        onClick={() => handleGoalOpen('goal')}
         style={{ marginTop: 16 }}
       >
         Add Goal
+      </Button>
+
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => handleGoalOpen('weight')}
+        style={{ marginTop: 16 }}
+      >
+        Add Weight
       </Button>
 
       <Typography variant="h4" sx={{ mb: 2 }}>

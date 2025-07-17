@@ -13,5 +13,6 @@ export const API_ROUTES = {
   GOALS: {
     GOALS_LIST: '/goals',
     ADD_GOAL: '/goals',
+    ADD_WEIGHT: '/goals/weight',
   },
 };
