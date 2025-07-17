@@ -1,8 +1,9 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { useState } from 'react';
 import AddGoal from './AddGoal';
+import AddWeight from './AddWeight';
 
-function AddGoalDialog({ open, onClose, onSuccess }) {
+function AddGoalDialog({ open, onClose, onSuccess, type }) {
   const [submitting, setSubmitting] = useState(false);
 
   async function handleFormSubmit(e, formSubmit) {
@@ -19,9 +20,13 @@ function AddGoalDialog({ open, onClose, onSuccess }) {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
-      <DialogTitle>Add Goal</DialogTitle>
+      <DialogTitle>{type === 'goal' ? 'Add Goal' : 'Add Weight'}</DialogTitle>
       <DialogContent>
-        <AddGoal onFormSubmit={handleFormSubmit} />
+        {type === 'goal' ? (
+          <AddGoal onFormSubmit={handleFormSubmit} />
+        ) : (
+          <AddWeight onFormSubmit={handleFormSubmit} />
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={submitting}>

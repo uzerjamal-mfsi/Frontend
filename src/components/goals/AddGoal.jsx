@@ -8,6 +8,7 @@ function AddGoal({ onFormSubmit }) {
   const [type, setType] = useState('');
   const [target, setTarget] = useState('');
   const [note, setNote] = useState('');
+  const formType = 'weight';
 
   async function handleSubmit(e, dialogCallbacks) {
     e.preventDefault();
@@ -20,9 +21,9 @@ function AddGoal({ onFormSubmit }) {
     await addGoal(payload);
 
     if (dialogCallbacks && dialogCallbacks.onSuccess) {
-      dialogCallbacks.onSuccess();
+      dialogCallbacks.onSuccess(formType);
     } else if (onFormSubmit) {
-      onFormSubmit();
+      onFormSubmit(formType);
     } else {
       navigate('/');
     }
