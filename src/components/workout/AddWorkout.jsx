@@ -4,11 +4,15 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import { addExercises, getExercises, updateExercises } from '../../services/auth/workout-service';
+import {
+  addExercises,
+  getExercises,
+  updateExercises,
+} from '../../services/workout/workout-service.js';
 import ExerciseTable from './ExerciseTable';
 import { useNavigate } from 'react-router-dom';
 
-function AddWorkout({ inDialog = false, onFormSubmit, workout }) {
+function AddWorkout({ onFormSubmit, workout }) {
   const navigate = useNavigate();
   const [note, setNote] = useState('');
   const [date, setDate] = useState(dayjs());
@@ -92,7 +96,7 @@ function AddWorkout({ inDialog = false, onFormSubmit, workout }) {
       } else {
         await addExercises(formattedData);
       }
-      if (inDialog && dialogCallbacks && dialogCallbacks.onSuccess) {
+      if (dialogCallbacks && dialogCallbacks.onSuccess) {
         dialogCallbacks.onSuccess();
       } else if (onFormSubmit) {
         onFormSubmit();
@@ -100,7 +104,7 @@ function AddWorkout({ inDialog = false, onFormSubmit, workout }) {
         navigate('/');
       }
     } catch {
-      if (inDialog && dialogCallbacks && dialogCallbacks.onError) {
+      if (dialogCallbacks && dialogCallbacks.onError) {
         dialogCallbacks.onError();
       }
     }
@@ -108,10 +112,7 @@ function AddWorkout({ inDialog = false, onFormSubmit, workout }) {
 
   return (
     <Container maxWidth="md" className="py-10">
-      <form
-        className="flex flex-col gap-4"
-        onSubmit={inDialog ? (e) => onFormSubmit(e, handleSubmit) : handleSubmit}
-      >
+      <form className="flex flex-col gap-4" onSubmit={(e) => onFormSubmit(e, handleSubmit)}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker label="Workout Date" value={date} onChange={(e) => setDate(e)} />
         </LocalizationProvider>

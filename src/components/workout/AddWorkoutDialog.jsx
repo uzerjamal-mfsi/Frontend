@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import AddWorkout from './AddWorkout';
-import { getWorkoutById } from '../../services/auth/workout-service';
+import { getWorkoutById } from '../../services/workout/workout-service';
 
 function AddWorkoutDialog({ open, onClose, onSuccess, workoutId }) {
   const [submitting, setSubmitting] = useState(false);
@@ -39,7 +39,7 @@ function AddWorkoutDialog({ open, onClose, onSuccess, workoutId }) {
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle>{workoutId ? 'Edit' : 'Add'} Workout</DialogTitle>
       <DialogContent>
-        <AddWorkout inDialog onFormSubmit={handleFormSubmit} workout={workoutData} />
+        <AddWorkout onFormSubmit={handleFormSubmit} workout={workoutData} />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} disabled={submitting}>

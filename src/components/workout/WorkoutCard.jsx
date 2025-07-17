@@ -1,6 +1,6 @@
 import { Card, CardContent, Typography, IconButton, Box } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteWorkout } from '../../services/auth/workout-service';
+import { deleteWorkout } from '../../services/workout/workout-service';
 import { useState } from 'react';
 
 function WorkoutCard({ workout, onClick, onDeleted }) {

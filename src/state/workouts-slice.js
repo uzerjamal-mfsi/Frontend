@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getWorkoutsList } from '../services/auth/workout-service';
+import { getWorkoutsList } from '../services/workout/workout-service';
 
 const initialState = {
   workouts: [],
