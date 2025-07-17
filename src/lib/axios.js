@@ -7,7 +7,6 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    console.log({ axiosInstance });
     const token = getToken();
     if (token) {
       config.headers = config.headers || {};
@@ -19,3 +18,14 @@ axiosInstance.interceptors.request.use(
 );
 
 export default axiosInstance;
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      window.localStorage.removeItem('jwt_token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  },
+);

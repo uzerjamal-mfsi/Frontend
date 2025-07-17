@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import AddWorkoutDialog from '../components/workout/AddWorkoutDialog';
 import { toast } from 'react-toastify';
@@ -9,12 +10,20 @@ import GoalList from '../components/goals/GoalList';
 import { fetchGoals } from '../state/goals-slice';
 import AddGoalDialog from '../components/goals/AddGoalDialog';
 import { Typography } from '@mui/material';
+import { deleteToken } from '../lib/token-storage';
 
 function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
   const [openGoalDialog, setOpenGoalDialog] = useState(false);
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    deleteToken();
+    navigate('/login');
+  };
 
   const handleWorkoutOpen = (workoutId = null) => {
     setSelectedWorkoutId(workoutId);
@@ -45,7 +54,12 @@ function DashboardPage() {
 
   return (
     <div>
-      <h1>Dashboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <h1>Dashboard</h1>
+        <Button variant="outlined" color="action" onClick={handleLogout}>
+          Logout
+        </Button>
+      </div>
       <AddWorkoutDialog
         open={openWorkoutDialog}
         onClose={handleWorkoutClose}
