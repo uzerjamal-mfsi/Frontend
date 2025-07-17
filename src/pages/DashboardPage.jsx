@@ -33,8 +33,8 @@ function DashboardPage() {
     setOpenWorkoutDialog(false);
     setSelectedWorkoutId(null);
   };
-  const handleWorkoutSubmit = () => {
-    toast.success('Workout added successfully!');
+  const handleWorkoutSubmit = (message) => {
+    toast.success(message || 'Workout added successfully!');
     setOpenWorkoutDialog(false);
     setSelectedWorkoutId(null);
     dispatch(fetchWorkouts());

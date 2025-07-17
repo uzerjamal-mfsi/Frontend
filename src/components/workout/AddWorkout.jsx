@@ -1,4 +1,4 @@
-import { Button, Container, TextField, Typography } from '@mui/material';
+import { Button, Container, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -91,15 +91,27 @@ function AddWorkout({ onFormSubmit, workout }) {
       })),
     };
     try {
+      let response;
       if (workout) {
-        await updateExercises(workout._id, formattedData);
+        response = await updateExercises(workout._id, formattedData);
       } else {
-        await addExercises(formattedData);
+        response = await addExercises(formattedData);
+      }
+      let message = '';
+      if (response && response.data.goal) {
+        const { achieved, progress, target } = response.data.goal;
+        if (achieved) {
+          message = 'Congratulations you have completed your workout per week goal!';
+        } else if (target && progress / target >= 0.75) {
+          message = `You are so close to finishing your goal of ${target}!`;
+        } else {
+          message = 'Workout added sucessfully!';
+        }
       }
       if (dialogCallbacks && dialogCallbacks.onSuccess) {
-        dialogCallbacks.onSuccess();
+        dialogCallbacks.onSuccess(message);
       } else if (onFormSubmit) {
-        onFormSubmit();
+        onFormSubmit(message);
       } else {
         navigate('/');
       }
