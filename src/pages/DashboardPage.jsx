@@ -11,6 +11,10 @@ import { fetchGoals } from '../state/goals-slice';
 import AddGoalDialog from '../components/goals/AddGoalDialog';
 import { Typography } from '@mui/material';
 import { deleteToken } from '../lib/token-storage';
+import WeeklyCaloriesBurned from '../components/analytics/WeeklyCaloriesBurned';
+import WeightMeasurements from '../components/analytics/WeightMeasurements';
+import AverageWeeklyFrequency from '../components/analytics/AverageWeeklyFrequency';
+import AverageWeeklyDuration from '../components/analytics/AverageWeeklyDuration';
 
 function DashboardPage() {
   const [openWorkoutDialog, setOpenWorkoutDialog] = useState(false);
@@ -75,6 +79,13 @@ function DashboardPage() {
         onSuccess={handleGoalSubmit}
         type={dialogType}
       />
+
+      <div style={{ display: 'flex' }}>
+        <WeeklyCaloriesBurned />
+        <WeightMeasurements />
+        <AverageWeeklyFrequency />
+        <AverageWeeklyDuration />
+      </div>
 
       <Typography variant="h4" sx={{ mb: 2 }}>
         Goals
