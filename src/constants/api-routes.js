@@ -15,4 +15,10 @@ export const API_ROUTES = {
     ADD_GOAL: '/goals',
     ADD_WEIGHT: '/goals/weight',
   },
+  ANALYTICS: {
+    WEEKLY_CALORIES: '/analytics/workout/calories',
+    WEEKLY_FREQUENCY: '/analytics/workout/frequency',
+    WEEKLY_DURATION: '/analytics/workout/duration',
+    WEIGHT_MEASUREMENT: '/analytics/weight',
+  },
 };
