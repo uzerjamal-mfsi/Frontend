@@ -36,7 +36,7 @@ function AddWorkoutDialog({ open, onClose, onSuccess, workoutId }) {
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth='md' fullWidth>
       <DialogTitle>{workoutId ? 'Edit' : 'Add'} Workout</DialogTitle>
       <DialogContent>
         <AddWorkout onFormSubmit={handleFormSubmit} workout={workoutData} />

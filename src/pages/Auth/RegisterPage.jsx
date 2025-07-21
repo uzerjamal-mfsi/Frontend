@@ -53,38 +53,38 @@ function RegisterPage() {
   };
 
   return (
-    <Container maxWidth="sm" className="py-10">
-      <Typography variant="h4" component="h1">
+    <Container maxWidth='sm' className='py-10'>
+      <Typography variant='h4' component='h1'>
         Register
       </Typography>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+      <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
         <TextField
-          label="Name"
+          label='Name'
           value={name}
           onChange={(e) => handleFieldChange('name', e.target.value)}
           error={!!errors.name}
           helperText={errors.name}
         />
         <TextField
-          label="Email"
+          label='Email'
           value={email}
           onChange={(e) => handleFieldChange('email', e.target.value)}
           error={!!errors.email}
           helperText={errors.email}
         />
         <TextField
-          label="Password"
-          type="password"
+          label='Password'
+          type='password'
           value={password}
           onChange={(e) => handleFieldChange('password', e.target.value)}
           error={!!errors.password}
           helperText={errors.password}
         />
 
-        <Button type="submit" variant="contained" color="primary" disabled={isSubmitDisabled}>
+        <Button type='submit' variant='contained' color='primary' disabled={isSubmitDisabled}>
           Register
         </Button>
-        <Button variant="text" color="secondary" to="/login" component={Link}>
+        <Button variant='text' color='secondary' to='/login' component={Link}>
           Already have an account? Login
         </Button>
       </form>

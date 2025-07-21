@@ -51,30 +51,30 @@ function LoginPage() {
   const isSubmitDisabled = !email || !password || Object.keys(errors).length > 0;
 
   return (
-    <Container maxWidth="sm" className="py-10">
-      <Typography variant="h4" component="h1">
+    <Container maxWidth='sm' className='py-10'>
+      <Typography variant='h4' component='h1'>
         Login
       </Typography>
-      <form className="flex flex-col gap-4" onSubmit={handleSubmit} noValidate>
+      <form className='flex flex-col gap-4' onSubmit={handleSubmit} noValidate>
         <TextField
-          label="Email"
+          label='Email'
           value={email}
           onChange={(e) => handleFieldChange('email', e.target.value)}
           error={!!errors.email}
           helperText={errors.email}
         />
         <TextField
-          label="Password"
-          type="password"
+          label='Password'
+          type='password'
           value={password}
           onChange={(e) => handleFieldChange('password', e.target.value)}
           error={!!errors.password}
           helperText={errors.password}
         />
-        <Button type="submit" variant="contained" color="primary" disabled={isSubmitDisabled}>
+        <Button type='submit' variant='contained' color='primary' disabled={isSubmitDisabled}>
           Login
         </Button>
-        <Button variant="text" color="secondary" to="/register" component={Link}>
+        <Button variant='text' color='secondary' to='/register' component={Link}>
           Don't have an account? Register
         </Button>
       </form>

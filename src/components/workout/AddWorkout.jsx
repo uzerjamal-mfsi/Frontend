@@ -130,16 +130,16 @@ function AddWorkout({ onFormSubmit, workout }) {
   }
 
   return (
-    <Container maxWidth="md" className="py-10">
-      <form className="flex flex-col gap-4" onSubmit={(e) => onFormSubmit(e, handleSubmit)}>
+    <Container maxWidth='md' className='py-10'>
+      <form className='flex flex-col gap-4' onSubmit={(e) => onFormSubmit(e, handleSubmit)}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label="Workout Date" value={date} onChange={(e) => setDate(e)} />
+          <DatePicker label='Workout Date' value={date} onChange={(e) => setDate(e)} />
         </LocalizationProvider>
-        <TextField label="Note" value={note} onChange={(e) => setNote(e.target.value)} />
+        <TextField label='Note' value={note} onChange={(e) => setNote(e.target.value)} />
         <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
           <TextField
-            label="Hours"
-            type="number"
+            label='Hours'
+            type='number'
             value={hours}
             slotProps={{ input: { min: 0 } }}
             onChange={(e) => {
@@ -152,8 +152,8 @@ function AddWorkout({ onFormSubmit, workout }) {
           />
 
           <TextField
-            label="Minutes"
-            type="number"
+            label='Minutes'
+            type='number'
             value={minutes}
             slotProps={{ input: { min: 0, max: 59 } }}
             onChange={(e) => {
@@ -175,11 +175,11 @@ function AddWorkout({ onFormSubmit, workout }) {
           deleteRow={deleteRow}
         />
 
-        <Button variant="contained" color="secondary" onClick={addRow}>
+        <Button variant='contained' color='secondary' onClick={addRow}>
           Add Exercise
         </Button>
 
-        <Button variant="contained" color="primary" type="submit">
+        <Button variant='contained' color='primary' type='submit'>
           Submit Workout
         </Button>
       </form>

@@ -30,33 +30,33 @@ function WorkoutCard({ workout, onClick, onDeleted }) {
   return (
     <Card
       onClick={() => onClick && onClick(workout.id)}
-      className="cursor-pointer transition-shadow duration-200 hover:shadow-lg"
+      className='cursor-pointer transition-shadow duration-200 hover:shadow-lg'
     >
       <CardContent>
-        <Box className="flex items-center justify-between mb-2">
-          <Typography variant="h6">
-            <span className="mr-2">{workout.note}</span>
+        <Box className='flex items-center justify-between mb-2'>
+          <Typography variant='h6'>
+            <span className='mr-2'>{workout.note}</span>
           </Typography>
           {workout.duration != null && (
-            <Typography color="text.secondary">
-              <span className="mr-2">{formatDuration(workout.duration)}</span>
+            <Typography color='text.secondary'>
+              <span className='mr-2'>{formatDuration(workout.duration)}</span>
             </Typography>
           )}
           <Typography>
-            <span className="mr-2">
+            <span className='mr-2'>
               Workout Date: {new Date(workout.date).toLocaleDateString()}
             </span>
           </Typography>
           <Typography>
-            <span className="mr-2">Exercises: {workout.exerciseCount}</span>
+            <span className='mr-2'>Exercises: {workout.exerciseCount}</span>
           </Typography>
           <Typography>
-            <span className="mr-2">Total Calories Burned: {workout.totalCaloriesBurned}</span>
+            <span className='mr-2'>Total Calories Burned: {workout.totalCaloriesBurned}</span>
           </Typography>
-          <Box className="flex items-center ml-auto h-full">
+          <Box className='flex items-center ml-auto h-full'>
             <IconButton
-              aria-label="delete"
-              size="small"
+              aria-label='delete'
+              size='small'
               onClick={handleDelete}
               sx={{ color: 'red' }}
               disabled={deleting}

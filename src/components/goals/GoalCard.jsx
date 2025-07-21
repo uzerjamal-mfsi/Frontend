@@ -9,8 +9,8 @@ function GoalCard({ goal }) {
     <Card sx={{ mb: 2 }}>
       <CardHeader title={label} />
       <CardContent>
-        <Typography variant="h6">{note}</Typography>
-        <Typography variant="h6">
+        <Typography variant='h6'>{note}</Typography>
+        <Typography variant='h6'>
           Target: {progress} / {target}
         </Typography>
         <Typography>Status: {achieved ? 'Achieved' : 'In Progress'}</Typography>

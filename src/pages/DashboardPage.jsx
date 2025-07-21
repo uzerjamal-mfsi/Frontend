@@ -66,10 +66,10 @@ function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="flex justify-between items-centers p-4 shadow-md bg-white">
-        <h1 class="text-5xl font-extrabold">Fitness Tracker</h1>
-        <Button variant="outlined" color="action" onClick={handleLogout}>
+    <div className='min-h-screen bg-gray-100'>
+      <div className='flex justify-between items-centers p-4 shadow-md bg-white'>
+        <h1 class='text-5xl font-extrabold'>Fitness Tracker</h1>
+        <Button variant='outlined' color='action' onClick={handleLogout}>
           Logout
         </Button>
       </div>
@@ -88,39 +88,39 @@ function DashboardPage() {
       />
 
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 p-4'>
           {charts.map((chart, index) => (
-            <Card key={index} className="shadow-sm">
+            <Card key={index} className='shadow-sm'>
               <CardHeader title={chart.title} />
               <CardContent>{chart.component}</CardContent>
             </Card>
           ))}
         </div>
 
-        <Card className="mt-4">
-          <CardHeader title="Goals" />
+        <Card className='mt-4'>
+          <CardHeader title='Goals' />
           <CardContent>
             <GoalList />
             <Button
-              variant="contained"
-              color="primary"
+              variant='contained'
+              color='primary'
               onClick={() => handleGoalOpen('goal')}
-              className="mr-8"
+              className='mr-8'
             >
               Add Goal
             </Button>
 
-            <Button variant="contained" color="primary" onClick={() => handleGoalOpen('weight')}>
+            <Button variant='contained' color='primary' onClick={() => handleGoalOpen('weight')}>
               Add Weight
             </Button>
           </CardContent>
         </Card>
 
-        <Card className="mt-4">
-          <CardHeader title="Recent Workouts" />
+        <Card className='mt-4'>
+          <CardHeader title='Recent Workouts' />
           <CardContent>
             <WorkoutList onCardClick={handleWorkoutOpen} />
-            <Button variant="contained" color="primary" onClick={() => handleWorkoutOpen()}>
+            <Button variant='contained' color='primary' onClick={() => handleWorkoutOpen()}>
               Add Workout
             </Button>
           </CardContent>
