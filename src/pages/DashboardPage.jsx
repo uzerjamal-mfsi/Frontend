@@ -9,7 +9,7 @@ import { fetchWorkouts } from '../state/workouts-slice';
 import GoalList from '../components/goals/GoalList';
 import { fetchGoals } from '../state/goals-slice';
 import AddGoalDialog from '../components/goals/AddGoalDialog';
-import { Typography } from '@mui/material';
+import { Box, Card, CardContent, CardHeader, Container, Grid, Typography } from '@mui/material';
 import { deleteToken } from '../lib/token-storage';
 import WeeklyCaloriesBurned from '../components/analytics/WeeklyCaloriesBurned';
 import WeightMeasurements from '../components/analytics/WeightMeasurements';
@@ -22,8 +22,14 @@ function DashboardPage() {
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null);
   const [dialogType, setDialogType] = useState(null);
   const dispatch = useDispatch();
-
   const navigate = useNavigate();
+
+  const charts = [
+    { title: 'Calories Burned Weekly', component: <WeeklyCaloriesBurned /> },
+    { title: 'Weight Measurements', component: <WeightMeasurements /> },
+    { title: 'Avg Weekly Workout Frequency', component: <AverageWeeklyFrequency /> },
+    { title: 'Avg Weekly Workout Duration', component: <AverageWeeklyDuration /> },
+  ];
 
   const handleLogout = () => {
     deleteToken();
@@ -60,13 +66,14 @@ function DashboardPage() {
   };
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <>
+      <div className="flex justify-between items-centers p-4 shadow-md">
         <h1>Dashboard</h1>
         <Button variant="outlined" color="action" onClick={handleLogout}>
           Logout
         </Button>
       </div>
+
       <AddWorkoutDialog
         open={openWorkoutDialog}
         onClose={handleWorkoutClose}
@@ -80,48 +87,46 @@ function DashboardPage() {
         type={dialogType}
       />
 
-      <div style={{ display: 'flex' }}>
-        <WeeklyCaloriesBurned />
-        <WeightMeasurements />
-        <AverageWeeklyFrequency />
-        <AverageWeeklyDuration />
-      </div>
+      <Container>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
+          {charts.map((chart, index) => (
+            <Card key={index} className="shadow-sm">
+              <CardHeader title={chart.title} />
+              <CardContent>{chart.component}</CardContent>
+            </Card>
+          ))}
+        </div>
 
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        Goals
-      </Typography>
-      <GoalList />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleGoalOpen('goal')}
-        style={{ marginTop: 16 }}
-      >
-        Add Goal
-      </Button>
+        <Card className="mt-4">
+          <CardHeader title="Goals" />
+          <CardContent>
+            <GoalList />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleGoalOpen('goal')}
+              className="mr-8"
+            >
+              Add Goal
+            </Button>
 
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleGoalOpen('weight')}
-        style={{ marginTop: 16 }}
-      >
-        Add Weight
-      </Button>
+            <Button variant="contained" color="primary" onClick={() => handleGoalOpen('weight')}>
+              Add Weight
+            </Button>
+          </CardContent>
+        </Card>
 
-      <Typography variant="h4" sx={{ mb: 2 }}>
-        Recent Workouts
-      </Typography>
-      <WorkoutList onCardClick={handleWorkoutOpen} />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleWorkoutOpen(null)}
-        style={{ marginTop: 16 }}
-      >
-        Add Workout
-      </Button>
-    </div>
+        <Card className="mt-4">
+          <CardHeader title="Recent Workouts" />
+          <CardContent>
+            <WorkoutList onCardClick={handleWorkoutOpen} />
+            <Button variant="contained" color="primary" onClick={() => handleWorkoutOpen()}>
+              Add Workout
+            </Button>
+          </CardContent>
+        </Card>
+      </Container>
+    </>
   );
 }
 

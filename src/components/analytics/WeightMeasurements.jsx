@@ -24,8 +24,6 @@ function WeightMeasurements() {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart
-        width={500}
-        height={300}
         data={weight}
         margin={{
           top: 5,

@@ -2,10 +2,10 @@ import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div className="p-4 text-center">
       <h1>Something went wrong.</h1>
       <p>{error.message}</p>
-      <button onClick={resetErrorBoundary} style={{ marginTop: '1rem' }}>
+      <button onClick={resetErrorBoundary} className="mt-2">
         Try again
       </button>
     </div>
