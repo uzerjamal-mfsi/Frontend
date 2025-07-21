@@ -66,9 +66,9 @@ function DashboardPage() {
   };
 
   return (
-    <>
-      <div className="flex justify-between items-centers p-4 shadow-md">
-        <h1>Dashboard</h1>
+    <div className="min-h-screen bg-gray-100">
+      <div className="flex justify-between items-centers p-4 shadow-md bg-white">
+        <h1 class="text-5xl font-extrabold">Fitness Tracker</h1>
         <Button variant="outlined" color="action" onClick={handleLogout}>
           Logout
         </Button>
@@ -126,7 +126,7 @@ function DashboardPage() {
           </CardContent>
         </Card>
       </Container>
-    </>
+    </div>
   );
 }
 
