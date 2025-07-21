@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchGoals } from '../../state/goals-slice';
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, Grid, Typography } from '@mui/material';
 import GoalCard from './GoalCard';
 
 function GoalList() {
@@ -14,7 +14,15 @@ function GoalList() {
 
   if (loading) return <CircularProgress />;
 
-  return <Box>{goals.length ? goals.map((goal) => <GoalCard goal={{ goal }} />) : null}</Box>;
+  return (
+    <Grid container spacing={2}>
+      {goals.map((goal) => (
+        <Grid key={goal.id} size={{ xs: 12, md: 6 }}>
+          <GoalCard goal={{ goal }} />
+        </Grid>
+      ))}
+    </Grid>
+  );
 }
 
 export default GoalList;

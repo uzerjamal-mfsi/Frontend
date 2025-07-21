@@ -8,10 +8,10 @@ import NotFoundPage from '../pages/NotFoundPage';
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/register" element={<RegisterPage />} />
-      <Route path="/login" element={<LoginPage />} />
+      <Route path='/register' element={<RegisterPage />} />
+      <Route path='/login' element={<LoginPage />} />
       <Route
-        path="/"
+        path='/'
         element={
           <ProtectedRoute>
             <DashboardPage />
@@ -19,7 +19,7 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="/dashboard"
+        path='/dashboard'
         element={
           <ProtectedRoute>
             <DashboardPage />
@@ -27,7 +27,7 @@ export default function AppRoutes() {
         }
       />
       <Route
-        path="*"
+        path='*'
         element={
           <ProtectedRoute>
             <NotFoundPage />

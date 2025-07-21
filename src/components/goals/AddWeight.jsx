@@ -28,20 +28,20 @@ function AddWeight({ onFormSubmit }) {
   }
 
   return (
-    <Container maxWidth="sm" className="py-10">
-      <form className="flex flex-col gap-4" onSubmit={(e) => onFormSubmit(e, handleSubmit)}>
+    <Container maxWidth='sm' className='py-10'>
+      <form className='flex flex-col gap-4' onSubmit={(e) => onFormSubmit(e, handleSubmit)}>
         <TextField
-          label="Weight"
-          type="number"
+          label='Weight'
+          type='number'
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
         />
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker label="Date" value={date} onChange={(e) => setDate(e)} />
+          <DatePicker label='Date' value={date} onChange={(e) => setDate(e)} />
         </LocalizationProvider>
 
-        <Button variant="contained" color="secondary" type="submit">
+        <Button variant='contained' color='secondary' type='submit'>
           Submit
         </Button>
       </form>

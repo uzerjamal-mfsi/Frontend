@@ -16,19 +16,19 @@ function ExerciseRow({
       <TableCell>
         <Autocomplete
           options={exercises.map((exercise) => `${exercise.name} (${exercise.muscleGroup})`)}
-          size="small"
+          size='small'
           sx={{ minWidth: 250 }}
           value={row.exercise || ''}
           onChange={(_, newValue) => updateCol(index, 'exercise', newValue)}
-          renderInput={(params) => <TextField {...params} label="Exercise" />}
+          renderInput={(params) => <TextField {...params} label='Exercise' />}
         />
       </TableCell>
       {exerciseRowTextFields.map(({ field }) => (
         <TableCell key={field}>
           <TextField
-            type="number"
+            type='number'
             value={row[field] || ''}
-            size="small"
+            size='small'
             onChange={(e) => updateCol(index, field, e.target.value)}
           />
         </TableCell>

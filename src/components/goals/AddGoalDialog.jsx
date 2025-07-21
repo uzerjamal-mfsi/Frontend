@@ -19,7 +19,7 @@ function AddGoalDialog({ open, onClose, onSuccess, type }) {
   }
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth='sm' fullWidth>
       <DialogTitle>{type === 'goal' ? 'Add Goal' : 'Add Weight'}</DialogTitle>
       <DialogContent>
         {type === 'goal' ? (
